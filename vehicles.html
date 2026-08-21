@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Inspection System - Data Kendaraan</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- ============ TOP NAVBAR ============ -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <button class="btn-menu" id="btnMenu">☰</button>
+            <span class="app-name">VINS - Vehicle Inspection System</span>
+        </div>
+        <div class="topbar-right">
+            <span class="user-name">Halo, Admin</span>
+            <button class="btn-logout" id="btnLogout">Logout</button>
+        </div>
+    </header>
+
+    <div class="wrapper">
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-menu">
+                <a href="dashboard.html" class="menu-item">Dashboard</a>
+                <a href="inspection.html" class="menu-item">Form Pengecekan</a>
+                <a href="history.html" class="menu-item">Riwayat Pengecekan</a>
+                <a href="vehicles.html" class="menu-item active">Data Kendaraan</a>
+                <a href="damage-reports.html" class="menu-item">Laporan Kerusakan</a>
+                <a href="profile.html" class="menu-item">Profil</a>
+            </nav>
+        </aside>
+
+        <!-- ============ KONTEN UTAMA ============ -->
+        <main class="main-content">
+
+            <div class="page-header">
+                <h1 class="page-title">Data Kendaraan</h1>
+                <button class="btn btn-primary" id="btnTambahKendaraan">+ Tambah Kendaraan</button>
+            </div>
+
+            <div class="card">
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nomor Polisi</th>
+                                <th>Merk / Model</th>
+                                <th>Jenis</th>
+                                <th>Driver</th>
+                                <th>Status</th>
+                                <th>Odometer</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelKendaraanBody">
+                            <!-- Baris data akan diisi otomatis oleh JavaScript -->
+                            <tr>
+                                <td colspan="7" class="text-center">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- ============ MODAL TAMBAH/EDIT KENDARAAN ============ -->
+    <div class="modal-overlay" id="modalKendaraan">
+        <div class="modal-box">
+
+            <div class="modal-header">
+                <h2 id="modalTitle">Tambah Kendaraan</h2>
+                <button class="btn-close-modal" id="btnCloseModal">&times;</button>
+            </div>
+
+            <form id="formKendaraan" class="modal-form">
+
+                <!-- Field tersembunyi untuk menyimpan id saat mode edit -->
+                <input type="hidden" id="vehicleId">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="inputPlatNomor">Nomor Polisi *</label>
+                        <input type="text" id="inputPlatNomor" placeholder="B 1234 ABC" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputJenis">Jenis Kendaraan *</label>
+                        <select id="inputJenis" required>
+                            <option value="">-- Pilih --</option>
+                            <option value="Motor">Motor</option>
+                            <option value="Mobil">Mobil</option>
+                            <option value="Pick Up">Pick Up</option>
+                            <option value="Truck">Truck</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="inputMerk">Merk *</label>
+                        <input type="text" id="inputMerk" placeholder="Toyota" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputModel">Model *</label>
+                        <input type="text" id="inputModel" placeholder="Avanza" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="inputTahun">Tahun</label>
+                        <input type="number" id="inputTahun" placeholder="2022">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputWarna">Warna</label>
+                        <input type="text" id="inputWarna" placeholder="Putih">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="inputNoRangka">Nomor Rangka</label>
+                        <input type="text" id="inputNoRangka">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputNoMesin">Nomor Mesin</label>
+                        <input type="text" id="inputNoMesin">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="inputOdometer">Odometer Terakhir (km)</label>
+                        <input type="number" id="inputOdometer" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDepartemen">Departemen</label>
+                        <input type="text" id="inputDepartemen" placeholder="General Affair">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="inputStatus">Status *</label>
+                        <select id="inputStatus" required>
+                            <option value="Aktif">Aktif</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Tidak Aktif">Tidak Aktif</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputStnk">Tanggal Habis Pajak STNK</label>
+                        <input type="date" id="inputStnk">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputKeterangan">Keterangan</label>
+                    <textarea id="inputKeterangan" rows="3"></textarea>
+                </div>
+
+                <div id="formError" class="error-message"></div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnBatal">Batal</button>
+                    <button type="submit" class="btn btn-primary" id="btnSimpanKendaraan">Simpan</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/vehicles.js"></script>
+</body>
+</html>

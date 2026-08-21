@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Inspection System - Laporan Kerusakan</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- ============ TOP NAVBAR ============ -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <button class="btn-menu" id="btnMenu">☰</button>
+            <span class="app-name">VINS - Vehicle Inspection System</span>
+        </div>
+        <div class="topbar-right">
+            <span class="user-name">Halo, Admin</span>
+            <button class="btn-logout" id="btnLogout">Logout</button>
+        </div>
+    </header>
+
+    <div class="wrapper">
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-menu">
+                <a href="dashboard.html" class="menu-item">Dashboard</a>
+                <a href="inspection.html" class="menu-item">Form Pengecekan</a>
+                <a href="history.html" class="menu-item">Riwayat Pengecekan</a>
+                <a href="vehicles.html" class="menu-item">Data Kendaraan</a>
+                <a href="damage-reports.html" class="menu-item active">Laporan Kerusakan</a>
+                <a href="profile.html" class="menu-item">Profil</a>
+            </nav>
+        </aside>
+
+        <!-- ============ KONTEN UTAMA ============ -->
+        <main class="main-content">
+
+            <div class="page-header">
+                <h1 class="page-title">Laporan Kerusakan</h1>
+                <button class="btn btn-primary" id="btnBuatLaporanManual">+ Buat Laporan Manual</button>
+            </div>
+
+            <!-- ============ FILTER BAR ============ -->
+            <div class="card filter-bar">
+                <div class="form-group">
+                    <label for="filterStatusLaporan">Status</label>
+                    <select id="filterStatusLaporan">
+                        <option value="">-- Semua Status --</option>
+                        <option value="Open">Open</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Waiting Sparepart">Waiting Sparepart</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filterKendaraanLaporan">Kendaraan</label>
+                    <select id="filterKendaraanLaporan">
+                        <option value="">-- Semua Kendaraan --</option>
+                    </select>
+                </div>
+                <div class="form-group filter-buttons">
+                    <button class="btn btn-primary" id="btnTerapkanFilterLaporan">Terapkan</button>
+                    <button class="btn btn-secondary" id="btnResetFilterLaporan">Reset</button>
+                </div>
+            </div>
+
+            <!-- ============ TABEL LAPORAN ============ -->
+            <div class="card">
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>No. Laporan</th>
+                                <th>Tanggal</th>
+                                <th>Nomor Polisi</th>
+                                <th>Deskripsi</th>
+                                <th>Tingkat</th>
+                                <th>Status</th>
+                                <th>Sumber</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelLaporanBody">
+                            <tr>
+                                <td colspan="8" class="text-center">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- ============ MODAL DETAIL & UBAH STATUS ============ -->
+    <div class="modal-overlay" id="modalDetailLaporan">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>Detail Laporan Kerusakan</h2>
+                <button class="btn-close-modal" id="btnCloseModalDetailLaporan">&times;</button>
+            </div>
+
+            <div id="detailLaporanContent"></div>
+
+            <div class="modal-form" style="margin-top: 20px;">
+                <div class="form-group">
+                    <label for="inputUbahStatus">Ubah Status</label>
+                    <select id="inputUbahStatus">
+                        <option value="Open">Open</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Waiting Sparepart">Waiting Sparepart</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+                </div>
+                <div id="statusUpdateError" class="error-message"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnBatalUbahStatus">Tutup</button>
+                    <button type="button" class="btn btn-primary" id="btnSimpanStatus">Simpan Status</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ MODAL BUAT LAPORAN MANUAL ============ -->
+    <div class="modal-overlay" id="modalLaporanManual">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>Buat Laporan Kerusakan Manual</h2>
+                <button class="btn-close-modal" id="btnCloseModalManual">&times;</button>
+            </div>
+
+            <form id="formLaporanManual" class="modal-form">
+
+                <div class="form-group">
+                    <label for="manualKendaraan">Kendaraan *</label>
+                    <select id="manualKendaraan" required>
+                        <option value="">-- Pilih Kendaraan --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="manualLokasi">Lokasi Kerusakan</label>
+                    <input type="text" id="manualLokasi" placeholder="Contoh: Ban depan kiri, Body samping kanan">
+                </div>
+
+                <div class="form-group">
+                    <label for="manualDeskripsi">Deskripsi Kerusakan *</label>
+                    <textarea id="manualDeskripsi" rows="3" placeholder="Jelaskan kerusakan yang ditemukan..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="manualTingkat">Tingkat Kerusakan *</label>
+                    <select id="manualTingkat" required>
+                        <option value="">-- Pilih Tingkat --</option>
+                        <option value="Minor">Minor</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="Major">Major</option>
+                        <option value="Critical">Critical</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="manualFoto">Foto Kerusakan (opsional)</label>
+                    <input type="file" id="manualFoto" accept="image/*" capture="environment">
+                    <div class="photo-box-preview" id="manualFotoPreview" style="margin-top: 8px; height: 140px;">Belum ada foto</div>
+                </div>
+
+                <div id="formLaporanManualError" class="error-message"></div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnBatalLaporanManual">Batal</button>
+                    <button type="submit" class="btn btn-primary" id="btnSimpanLaporanManual">Simpan Laporan</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/damage-reports.js"></script>
+</body>
+</html>

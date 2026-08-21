@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Inspection System - Riwayat Pengecekan</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/history-print.css" media="print">
+</head>
+<body>
+
+    <!-- ============ TOP NAVBAR ============ -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <button class="btn-menu" id="btnMenu">☰</button>
+            <span class="app-name">VINS - Vehicle Inspection System</span>
+        </div>
+        <div class="topbar-right">
+            <span class="user-name">Halo, Admin</span>
+            <button class="btn-logout" id="btnLogout">Logout</button>
+        </div>
+    </header>
+
+    <div class="wrapper">
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-menu">
+                <a href="dashboard.html" class="menu-item">Dashboard</a>
+                <a href="inspection.html" class="menu-item">Form Pengecekan</a>
+                <a href="history.html" class="menu-item active">Riwayat Pengecekan</a>
+                <a href="vehicles.html" class="menu-item">Data Kendaraan</a>
+                <a href="damage-reports.html" class="menu-item">Laporan Kerusakan</a>
+                <a href="profile.html" class="menu-item">Profil</a>
+            </nav>
+        </aside>
+
+        <!-- ============ KONTEN UTAMA ============ -->
+        <main class="main-content">
+
+                        <div class="page-header">
+                <h1 class="page-title">Riwayat Pengecekan</h1>
+                <button class="btn btn-primary" id="btnExportExcel">📥 Export ke Excel</button>
+            </div>
+
+            <!-- ============ FILTER BAR ============ -->
+            <div class="card filter-bar">
+
+                <div class="form-group">
+                    <label for="filterSearch">Cari (Nomor Polisi)</label>
+                    <input type="text" id="filterSearch" placeholder="Contoh: B 1234 ABC">
+                </div>
+
+                <div class="form-group">
+                    <label for="filterKendaraan">Kendaraan</label>
+                    <select id="filterKendaraan">
+                        <option value="">-- Semua Kendaraan --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="filterStatus">Hasil</label>
+                    <select id="filterStatus">
+                        <option value="">-- Semua Hasil --</option>
+                        <option value="LAYAK DIGUNAKAN">LAYAK DIGUNAKAN</option>
+                        <option value="PERLU PERHATIAN">PERLU PERHATIAN</option>
+                        <option value="TIDAK LAYAK DIGUNAKAN">TIDAK LAYAK DIGUNAKAN</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="filterTanggalDari">Dari Tanggal</label>
+                    <input type="date" id="filterTanggalDari">
+                </div>
+
+                <div class="form-group">
+                    <label for="filterTanggalSampai">Sampai Tanggal</label>
+                    <input type="date" id="filterTanggalSampai">
+                </div>
+
+                <div class="form-group filter-buttons">
+                    <button class="btn btn-primary" id="btnTerapkanFilter">Terapkan</button>
+                    <button class="btn btn-secondary" id="btnResetFilter">Reset</button>
+                </div>
+
+            </div>
+
+            <!-- ============ TABEL RIWAYAT ============ -->
+            <div class="card">
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Jam</th>
+                                <th>Nomor Polisi</th>
+                                <th>Kendaraan</th>
+                                <th>Pemeriksa</th>
+                                <th>Odometer</th>
+                                <th>Hasil</th>
+                                <th>Temuan</th>
+                                <th>Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelHistoryBody">
+                            <tr>
+                                <td colspan="9" class="text-center">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ============ PAGINATION ============ -->
+                <div class="pagination-bar">
+                    <span id="paginationInfo">Menampilkan 0 data</span>
+                    <div class="pagination-buttons">
+                        <button class="btn btn-secondary" id="btnPrevPage">‹ Sebelumnya</button>
+                        <span id="paginationPageNumber">Halaman 1</span>
+                        <button class="btn btn-secondary" id="btnNextPage">Berikutnya ›</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- ============ MODAL DETAIL PENGECEKAN ============ -->
+    <div class="modal-overlay" id="modalDetail">
+        <div class="modal-box modal-box-large">
+
+                        <div class="modal-header">
+                <h2>Detail Pengecekan</h2>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <button class="btn btn-secondary" id="btnCetakPDF">🖨️ Cetak PDF</button>
+                    <button class="btn-close-modal" id="btnCloseModalDetail">&times;</button>
+                </div>
+            </div>
+
+                        <div class="print-header" id="printHeader">
+                <h1>VINS - Vehicle Inspection System</h1>
+                <p>Laporan Hasil Pengecekan Kendaraan</p>
+            </div>
+
+            <div id="detailContent">
+                <!-- Konten detail akan diisi otomatis oleh JavaScript -->
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/history.js"></script>
+</body>
+</html>

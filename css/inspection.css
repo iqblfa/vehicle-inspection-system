@@ -1,0 +1,389 @@
+/* ============================================
+   FORM PENGECEKAN
+   ============================================ */
+
+.inspeksi-header-card {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #1e293b;
+}
+
+.form-group input[readonly] {
+    background-color: #f1f5f9;
+    color: #64748b;
+}
+
+/* ============================================
+   KARTU KATEGORI CHECKLIST
+   ============================================ */
+
+.checklist-category {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.checklist-category-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+    flex-wrap: wrap;
+}
+
+.checklist-item:last-child {
+    border-bottom: none;
+}
+
+.checklist-item-name {
+    font-size: 14px;
+    color: #1e293b;
+    flex: 1;
+    min-width: 140px;
+}
+
+.checklist-item-status {
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    min-width: 180px;
+    background-color: white;
+}
+
+/* Memberi warna pada select sesuai status yang dipilih, supaya mudah dipindai mata */
+.checklist-item-status.status-baik {
+    border-color: #16a34a;
+    color: #16a34a;
+}
+
+.checklist-item-status.status-perhatian {
+    border-color: #f59e0b;
+    color: #b45309;
+}
+
+.checklist-item-status.status-rusak {
+    border-color: #dc2626;
+    color: #dc2626;
+}
+
+/* ============================================
+   TOMBOL SUBMIT (sticky di bawah, mudah dijangkau di HP)
+   ============================================ */
+
+.submit-bar {
+    position: sticky;
+    bottom: 0;
+    background-color: #f1f5f9;
+    padding: 16px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-submit-inspeksi {
+    padding: 14px 28px;
+    font-size: 15px;
+}
+
+/* ============================================
+   RESPONSIVE: di layar kecil, item checklist ditumpuk vertikal
+   ============================================ */
+
+@media (max-width: 600px) {
+    .checklist-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .checklist-item-status {
+        width: 100%;
+    }
+
+    .submit-bar {
+        justify-content: stretch;
+    }
+
+    .btn-submit-inspeksi {
+        width: 100%;
+    }
+
+    .checklist-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .checklist-item-status {
+        width: 100%;
+    }
+
+    .submit-bar {
+        justify-content: stretch;
+    }
+
+    .btn-submit-inspeksi {
+        width: 100%;
+    }
+
+    /* ============================================
+       PHASE 19: PERBAIKAN FOTO & FORM DI MOBILE
+       ============================================ */
+
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .photo-box-preview {
+        height: 100px;
+    }
+
+    .photo-box input[type="file"] {
+        font-size: 13px;
+        padding: 8px 0;
+    }
+
+    .checklist-item-status {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .inspeksi-header-card .form-row {
+        flex-direction: column;
+    }
+}
+
+/* ============================================
+   FIELD KERUSAKAN DINAMIS (muncul saat status = Rusak)
+   ============================================ */
+
+.damage-detail {
+    display: none; /* disembunyikan default */
+    width: 100%;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 14px;
+    margin-top: 10px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.damage-detail.show {
+    display: flex; /* dimunculkan lewat JavaScript saat status "Rusak" dipilih */
+}
+
+.damage-detail label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #991b1b;
+    margin-bottom: 4px;
+    display: block;
+}
+
+/* PHASE 19: perbaikan agar setiap baris field kerusakan selalu selebar penuh,
+   apapun ukuran layarnya (memperbaiki tampilan tablet yang berantakan) */
+.damage-detail > div {
+    width: 100%;
+    display: block;
+}
+
+.damage-detail textarea,
+.damage-detail select {
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
+.damage-detail textarea,
+.damage-detail select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #fca5a5;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+/* ============================================
+   BANNER HASIL EVALUASI
+   ============================================ */
+
+.result-banner {
+    display: none; /* disembunyikan default, hanya muncul setelah submit berhasil */
+    background-color: white;
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.result-banner.show {
+    display: flex;
+}
+
+.result-icon {
+    font-size: 48px;
+}
+
+.result-text h2 {
+    font-size: 22px;
+    margin-bottom: 6px;
+}
+
+.result-text p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.result-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+/* Variasi warna sesuai hasil evaluasi */
+.result-banner.result-layak .result-text h2 {
+    color: #16a34a;
+}
+
+.result-banner.result-perhatian .result-text h2 {
+    color: #b45309;
+}
+
+.result-banner.result-tidaklayak .result-text h2 {
+    color: #dc2626;
+}
+
+
+/* ============================================
+   GRID UPLOAD FOTO
+   ============================================ */
+
+.section-subtitle {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: -10px;
+    margin-bottom: 16px;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.photo-box {
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    position: relative;
+}
+
+.photo-box.filled {
+    border-style: solid;
+    border-color: #16a34a;
+}
+
+.photo-box-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 8px;
+}
+
+.photo-box-preview {
+    width: 100%;
+    height: 120px;
+    background-color: #f1f5f9;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 8px;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.photo-box-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* memotong gambar supaya pas mengisi kotak tanpa gepeng */
+}
+
+.photo-box input[type="file"] {
+    font-size: 12px;
+    width: 100%;
+}
+
+.photo-upload-status {
+    font-size: 11px;
+    margin-top: 6px;
+    color: #64748b;
+}
+
+/* Kotak foto kerusakan, muncul di dalam blok damage-detail */
+.damage-photo-box {
+    margin-top: 8px;
+}
+
+.damage-photo-box .photo-box-preview {
+    height: 90px;
+}
+
+
+/* ============================================
+   PHASE 21: INDIKATOR STATUS KONEKSI & OFFLINE
+   ============================================ */
+
+.status-koneksi {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+.status-koneksi.status-online {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+.status-koneksi.status-offline {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.status-tertunda {
+    padding: 10px 16px;
+    background-color: #fef3c7;
+    color: #b45309;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Inspection System - Login</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+    <div class="login-page">
+
+        <div class="login-box">
+
+            <div class="login-header">
+                <h1 class="login-title">VINS</h1>
+                <p class="login-subtitle">Vehicle Inspection System</p>
+            </div>
+
+            <form id="formLogin" class="login-form">
+
+                <div class="form-group">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" id="inputEmail" placeholder="contoh@perusahaan.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" id="inputPassword" placeholder="Masukkan password" required>
+                </div>
+
+                <!-- Tempat menampilkan pesan error, kosong secara default -->
+                <div id="loginError" class="error-message"></div>
+
+                <button type="submit" class="btn-login">Masuk</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

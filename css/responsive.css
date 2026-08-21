@@ -1,0 +1,124 @@
+/* ============================================
+   RESPONSIVE - Tampilan untuk Tablet & HP
+   Breakpoint: layar dengan lebar 768px ke bawah
+   ============================================ */
+
+@media (max-width: 768px) {
+
+    /* Sidebar disembunyikan (digeser ke kiri, keluar layar) */
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        z-index: 200;
+        width: 220px;
+    }
+
+    /* Class ini akan ditambahkan lewat JavaScript saat tombol menu diklik (Phase 5) */
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    /* Karena sidebar disembunyikan, konten tidak perlu diberi jarak kiri lagi */
+    .main-content {
+        margin-left: 0;
+        padding: 16px;
+    }
+
+    /* Tombol hamburger dimunculkan hanya di layar kecil */
+    .btn-menu {
+        display: block;
+    }
+
+    /* Nama aplikasi diperkecil supaya muat di layar sempit */
+    .app-name {
+        font-size: 14px;
+    }
+
+    /* Nama user disembunyikan di HP supaya topbar tidak terlalu penuh, 
+       cukup tombol logout saja yang tetap terlihat */
+    .user-name {
+        display: none;
+    }
+
+    .btn-logout {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+    /* ============================================
+       PHASE 19: PERBAIKAN UMUM UNTUK MOBILE
+       ============================================ */
+
+    /* Card tidak terlalu menempel ke tepi layar */
+    .card {
+        padding: 16px;
+        border-radius: 8px;
+    }
+
+    /* Page header (judul + tombol aksi) ditumpuk vertikal, tombol full-width */
+    .page-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .page-header .btn {
+        width: 100%;
+    }
+
+    /* Tabel: sedikit perbesar area sentuh tombol aksi */
+    .btn-icon {
+        padding: 10px 14px;
+        font-size: 18px;
+    }
+
+    /* Form row yang tadinya 2 kolom sejajar, jadi 1 kolom di HP */
+    .form-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* Input, select, textarea: pastikan ukuran font minimal 16px
+       (mencegah Safari/Chrome di iPhone otomatis nge-zoom saat fokus ke input) */
+    input,
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+    /* ============================================
+       PHASE 19: MODAL DI MOBILE
+       ============================================ */
+
+    .modal-overlay {
+        padding: 0; /* modal mepet penuh ke tepi layar di HP, memaksimalkan ruang */
+    }
+
+    .modal-box,
+    .modal-box-large {
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0; /* sudut tidak perlu melengkung kalau memenuhi layar penuh */
+    }
+
+    .modal-footer {
+        flex-direction: column-reverse; /* tombol utama (Simpan) di ATAS tombol Batal, lebih mudah dijangkau jempol */
+        gap: 8px;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   PHASE 19: SAFE AREA UNTUK HP DENGAN NOTCH
+   (iPhone X ke atas, dan HP Android sejenis)
+   ============================================ */
+
+body {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.submit-bar {
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0));
+}

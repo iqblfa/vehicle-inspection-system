@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Inspection System - Form Pengecekan</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/inspection.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- ============ TOP NAVBAR ============ -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <button class="btn-menu" id="btnMenu">☰</button>
+            <span class="app-name">VINS - Vehicle Inspection System</span>
+        </div>
+        <div class="topbar-right">
+            <span class="user-name">Halo, Admin</span>
+            <button class="btn-logout" id="btnLogout">Logout</button>
+        </div>
+    </header>
+
+    <div class="wrapper">
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-menu">
+                <a href="dashboard.html" class="menu-item">Dashboard</a>
+                <a href="inspection.html" class="menu-item active">Form Pengecekan</a>
+                <a href="history.html" class="menu-item">Riwayat Pengecekan</a>
+                <a href="vehicles.html" class="menu-item">Data Kendaraan</a>
+                <a href="damage-reports.html" class="menu-item">Laporan Kerusakan</a>
+                <a href="profile.html" class="menu-item">Profil</a>
+            </nav>
+        </aside>
+
+        <!-- ============ KONTEN UTAMA ============ -->
+        <main class="main-content">
+
+                        <!-- ============ INDIKATOR STATUS KONEKSI & DATA TERTUNDA ============ -->
+            <div id="statusKoneksi" class="status-koneksi status-online">
+                🟢 Online
+            </div>
+            <div id="statusTertunda" class="status-tertunda" style="display: none;">
+                📤 <span id="jumlahTertunda">0</span> data pengecekan menunggu sinkronisasi
+            </div>
+
+            <h1 class="page-title">Form Pengecekan Kendaraan</h1>
+
+            <form id="formInspeksi">
+
+                <!-- ============ HEADER FORM ============ -->
+                <div class="card inspeksi-header-card">
+                    <h2 class="section-title">Informasi Pengecekan</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inputTanggal">Tanggal *</label>
+                            <input type="date" id="inputTanggal" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputJam">Jam *</label>
+                            <input type="time" id="inputJam" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inputPemeriksa">Nama Pemeriksa</label>
+                            <input type="text" id="inputPemeriksa" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputKendaraan">Kendaraan *</label>
+                            <select id="inputKendaraan" required>
+                                <option value="">-- Memuat data kendaraan... --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inputOdometer">Odometer (km) *</label>
+                            <input type="number" id="inputOdometer" placeholder="Contoh: 45000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLokasi">Lokasi Pengecekan</label>
+                            <input type="text" id="inputLokasi" placeholder="Contoh: Kantor Pusat">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============ FOTO WAJIB KENDARAAN ============ -->
+                <div class="card">
+                    <h2 class="section-title">Foto Kendaraan *</h2>
+                    <p class="section-subtitle">Ambil foto langsung dari kamera HP atau upload dari galeri.</p>
+
+                    <div class="photo-grid" id="photoGrid">
+                        <!-- 5 kotak foto akan digambar otomatis oleh JavaScript -->
+                    </div>
+                </div>
+
+                <!-- ============ CHECKLIST (diisi otomatis oleh JavaScript) ============ -->
+                <div id="checklistContainer">
+                    <!-- Kategori dan item checklist akan digambar di sini oleh inspection.js -->
+                </div>
+
+                <div id="formInspeksiError" class="error-message"></div>
+
+                <!-- ============ TOMBOL SUBMIT ============ -->
+                <div class="submit-bar">
+                    <button type="submit" class="btn btn-primary btn-submit-inspeksi" id="btnSubmitInspeksi">Simpan Pengecekan</button>
+                </div>
+
+            </form>
+
+            <!-- ============ HASIL EVALUASI (muncul setelah berhasil simpan) ============ -->
+            <div class="result-banner" id="resultBanner">
+                <div class="result-icon" id="resultIcon"></div>
+                <div class="result-text">
+                    <h2 id="resultTitle"></h2>
+                    <p id="resultSubtitle"></p>
+                </div>
+                <div class="result-actions">
+                    <button class="btn btn-primary" id="btnInspeksiBaru">Buat Pengecekan Baru</button>
+                    <a href="history.html" class="btn btn-secondary">Lihat Riwayat</a>
+                </div>
+            </div>
+
+            </form>
+
+        </main>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/offline-db.js"></script>
+    <script src="js/inspection.js"></script>
+
+    <script>
+        // Mendaftarkan Service Worker (hanya berjalan kalau browser mendukung)
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/sw.js")
+                .then(function (registration) {
+                    console.log("Service Worker berhasil didaftarkan:", registration.scope);
+                })
+                .catch(function (error) {
+                    console.log("Gagal mendaftarkan Service Worker:", error);
+                });
+        }
+    </script>
+</body>
+</html>

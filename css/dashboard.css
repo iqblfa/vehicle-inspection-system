@@ -1,0 +1,509 @@
+/* ============================================
+   PAGE HEADER (judul halaman + tombol aksi)
+   ============================================ */
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.page-header .page-title {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   TABEL DATA
+   ============================================ */
+
+.table-wrapper {
+    overflow-x: auto; /* supaya tabel bisa di-scroll ke samping di layar sempit */
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 12px 16px;
+    background-color: #f8fafc;
+    color: #64748b;
+    font-weight: 600;
+    border-bottom: 2px solid #e2e8f0;
+    white-space: nowrap;
+}
+
+.data-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    white-space: nowrap;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.text-center {
+    text-align: center;
+    color: #94a3b8;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-right: 4px;
+}
+
+.btn-icon:hover {
+    background-color: #e2e8f0;
+}
+
+.btn-icon.danger:hover {
+    background-color: #fee2e2;
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+
+.modal-overlay {
+    display: none; /* disembunyikan default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.modal-overlay.show {
+    display: flex; /* dimunculkan saat class "show" ditambahkan */
+}
+
+.modal-box {
+    background-color: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header h2 {
+    font-size: 18px;
+}
+
+.btn-close-modal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #64748b;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.modal-form select,
+.modal-form textarea {
+    padding: 12px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+}
+
+.modal-form select:focus,
+.modal-form textarea:focus {
+    border-color: #2563eb;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: #1e293b;
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e1;
+}
+
+/* ============================================
+   BADGE STATUS KENDARAAN
+   ============================================ */
+
+.badge-aktif {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+.badge-maintenance {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.badge-tidakaktif {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+/* ============================================
+   STAT CARDS (dashboard)
+   ============================================ */
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.stat-icon-blue {
+    background-color: #dbeafe;
+}
+
+.stat-icon-green {
+    background-color: #dcfce7;
+}
+
+.stat-icon-yellow {
+    background-color: #fef3c7;
+}
+
+.stat-icon-red {
+    background-color: #fee2e2;
+}
+
+.stat-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 2px;
+}
+
+/* ============================================
+   FILTER BAR (halaman Riwayat Pengecekan)
+   ============================================ */
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.filter-bar .form-group {
+    flex: 1;
+    min-width: 160px;
+}
+
+.filter-bar input,
+.filter-bar select {
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 8px;
+    flex: 0 0 auto;
+}
+
+/* ============================================
+   PAGINATION
+   ============================================ */
+
+.pagination-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 16px;
+    margin-top: 12px;
+    border-top: 1px solid #f1f5f9;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.pagination-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pagination-buttons button {
+    padding: 8px 14px;
+    font-size: 13px;
+}
+
+.pagination-buttons button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   MODAL DETAIL (versi lebih lebar dari modal biasa)
+   ============================================ */
+
+.modal-box-large {
+    max-width: 800px;
+}
+
+.detail-section {
+    margin-bottom: 24px;
+}
+
+.detail-section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    background-color: #f8fafc;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.detail-info-item .label {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 2px;
+}
+
+.detail-info-item .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.detail-result-banner {
+    text-align: center;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.detail-result-layak {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+.detail-result-perhatian {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.detail-result-tidaklayak {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.detail-checklist-category {
+    margin-bottom: 16px;
+}
+
+.detail-checklist-category-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.detail-checklist-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.detail-checklist-row .damage-note {
+    width: 100%;
+    background-color: #fef2f2;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #991b1b;
+}
+
+.detail-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+}
+
+.detail-photo-grid img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ============================================
+   BADGE STATUS LAPORAN KERUSAKAN
+   ============================================ */
+
+.badge-status-open {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.badge-status-inprogress {
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+.badge-status-waiting {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.badge-status-completed {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+.badge-status-closed {
+    background-color: #f1f5f9;
+    color: #64748b;
+}
+
+.badge-source {
+    background-color: #ede9fe;
+    color: #7c3aed;
+    font-size: 11px;
+}
+
+/* ============================================
+   PHASE 19: FILTER BAR DI MOBILE
+   ============================================ */
+
+@media (max-width: 768px) {
+
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-bar .form-group {
+        width: 100%;
+    }
+
+    .filter-buttons {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .filter-buttons .btn {
+        flex: 1; /* tombol Terapkan & Reset berbagi lebar secara merata */
+    }
+
+    /* Stat cards dashboard: pastikan tidak terlalu memanjang di HP kecil */
+    .stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    /* Pagination bar: info dan tombol ditumpuk rapi */
+    .pagination-bar {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .pagination-buttons {
+        justify-content: center;
+    }
+}

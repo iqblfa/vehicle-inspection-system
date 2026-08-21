@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Inspection System - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- ============ TOP NAVBAR ============ -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <button class="btn-menu" id="btnMenu">☰</button>
+            <span class="app-name">VINS - Vehicle Inspection System</span>
+        </div>
+        <div class="topbar-right">
+            <span class="user-name">Halo, Nama User</span>
+            <button class="btn-logout" id="btnLogout">Logout</button>
+        </div>
+    </header>
+
+    <!-- ============ WRAPPER (sidebar + konten) ============ -->
+    <div class="wrapper">
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-menu">
+                <a href="dashboard.html" class="menu-item active">Dashboard</a>
+                <a href="inspection.html" class="menu-item">Form Pengecekan</a>
+                <a href="history.html" class="menu-item">Riwayat Pengecekan</a>
+                <a href="vehicles.html" class="menu-item">Data Kendaraan</a>
+                <a href="damage-reports.html" class="menu-item">Laporan Kerusakan</a>
+                <a href="profile.html" class="menu-item">Profil</a>
+            </nav>
+        </aside>
+
+        <!-- ============ KONTEN UTAMA ============ -->
+        <main class="main-content">
+
+            <h1 class="page-title">Dashboard</h1>
+
+            <!-- ============ STAT CARDS ============ -->
+            <div class="stat-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-blue">🚗</div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statTotalKendaraan">-</div>
+                        <div class="stat-label">Total Kendaraan</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-green">🟢</div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statKondisiBaik">-</div>
+                        <div class="stat-label">Kondisi Baik</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-yellow">🟡</div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statPerluPerhatian">-</div>
+                        <div class="stat-label">Perlu Perhatian</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-red">🔴</div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statRusak">-</div>
+                        <div class="stat-label">Rusak</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-blue">📋</div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statPengecekanHariIni">-</div>
+                        <div class="stat-label">Pengecekan Hari Ini</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-blue">📅</div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statPengecekanBulanIni">-</div>
+                        <div class="stat-label">Pengecekan Bulan Ini</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-red">⚠️</div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statLaporanKerusakan">-</div>
+                        <div class="stat-label">Laporan Kerusakan (Open)</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ============ PENGECEKAN TERAKHIR ============ -->
+            <div class="card">
+                <div class="page-header">
+                    <h2 class="section-title">Pengecekan Terakhir</h2>
+                    <a href="history.html" class="btn btn-secondary">Lihat Semua</a>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Nomor Polisi</th>
+                                <th>Pemeriksa</th>
+                                <th>Hasil</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelPengecekanTerakhir">
+                            <tr>
+                                <td colspan="4" class="text-center">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

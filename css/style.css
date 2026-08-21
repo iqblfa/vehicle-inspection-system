@@ -1,0 +1,227 @@
+/* ============================================
+   1. RESET & VARIABEL WARNA
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-primary: #2563eb;      /* biru utama */
+    --color-primary-dark: #1d4ed8; /* biru lebih gelap, untuk hover */
+    --color-sidebar-bg: #1e293b;   /* abu gelap kebiruan untuk sidebar */
+    --color-topbar-bg: #ffffff;
+    --color-bg: #f1f5f9;           /* abu sangat muda untuk latar halaman */
+    --color-text: #1e293b;
+    --color-text-light: #64748b;
+    --color-border: #e2e8f0;
+    --color-danger: #dc2626;
+    --color-warning: #f59e0b;
+    --color-success: #16a34a;
+
+    --topbar-height: 60px;
+    --sidebar-width: 240px;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+/* ============================================
+   2. TOP NAVBAR
+   ============================================ */
+
+.topbar {
+    height: var(--topbar-height);
+    background-color: var(--color-topbar-bg);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-menu {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    display: none; /* default disembunyikan, hanya muncul di HP (lihat responsive.css) */
+}
+
+.btn-menu:hover {
+    background-color: var(--color-bg);
+}
+
+.app-name {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--color-primary);
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-name {
+    font-size: 14px;
+    color: var(--color-text-light);
+}
+
+.btn-logout {
+    background-color: var(--color-danger);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-logout:hover {
+    opacity: 0.9;
+}
+
+/* ============================================
+   3. WRAPPER (sidebar + konten)
+   ============================================ */
+
+.wrapper {
+    display: flex;
+    margin-top: var(--topbar-height); /* supaya tidak ketutupan topbar yang fixed */
+}
+
+/* ============================================
+   4. SIDEBAR
+   ============================================ */
+
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--color-sidebar-bg);
+    height: calc(100vh - var(--topbar-height));
+    position: fixed;
+    top: var(--topbar-height);
+    left: 0;
+    overflow-y: auto;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+}
+
+.menu-item {
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 14px 24px;
+    font-size: 15px;
+    border-left: 4px solid transparent;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
+.menu-item.active {
+    background-color: rgba(37, 99, 235, 0.2);
+    color: white;
+    border-left: 4px solid var(--color-primary);
+    font-weight: 600;
+}
+
+/* ============================================
+   5. KONTEN UTAMA
+   ============================================ */
+
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 24px;
+    width: 100%;
+    min-height: calc(100vh - var(--topbar-height));
+}
+
+.page-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: var(--color-text);
+}
+
+/* ============================================
+   6. KOMPONEN UMUM (dipakai di banyak halaman nanti)
+   ============================================ */
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dark);
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: #dcfce7;
+    color: var(--color-success);
+}
+
+.badge-warning {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.badge-danger {
+    background-color: #fee2e2;
+    color: var(--color-danger);
+}
+
+.badge-secondary {
+    background-color: #f1f5f9;
+    color: #64748b;
+}
