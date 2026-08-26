@@ -296,6 +296,16 @@ document.querySelector("#btnSimpanStatus").addEventListener("click", async funct
 
     document.querySelector("#modalDetailLaporan").classList.remove("show");
     muatDataLaporan();
+
+    // --- Jika status baru adalah "Completed", tawarkan pencatatan servis ---
+    if (statusBaru === "Completed") {
+        const mauCatatServis = confirm("Status berhasil diperbarui menjadi Completed. Apakah Anda ingin langsung mencatat detail servis/perbaikan untuk laporan ini?");
+        if (mauCatatServis) {
+            window.location.href = "maintenance.html";
+            return;
+        }
+    }
+
     alert("Status laporan berhasil diperbarui.");
 });
 
