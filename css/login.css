@@ -93,3 +93,39 @@
     background-color: #94a3b8;
     cursor: not-allowed;
 }
+
+
+/* ============================================
+   PHASE 25: LINK DAFTAR/MASUK & PESAN SUKSES
+   ============================================ */
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.register-link a {
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.success-message {
+    color: #16a34a;
+    background-color: #dcfce7;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    min-height: 18px;
+    display: none;
+}
+
+.success-message.show {
+    display: block;
+}

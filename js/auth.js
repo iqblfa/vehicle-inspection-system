@@ -56,6 +56,116 @@ if (formLogin) {
 
 }
 
+
+// ============================================
+// PHASE 25: LOGIKA REGISTRASI AKUN BARU (register.html)
+// ============================================
+
+const formRegister = document.querySelector("#formRegister");
+
+// Kode di bawah ini HANYA berjalan jika elemen #formRegister ditemukan
+// (artinya kita sedang berada di register.html)
+if (formRegister) {
+
+    const registerError = document.querySelector("#registerError");
+    const registerSuccess = document.querySelector("#registerSuccess");
+    const btnRegister = document.querySelector(".btn-login");
+
+    formRegister.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        registerError.textContent = "";
+        registerSuccess.classList.remove("show");
+
+        // Mengambil semua nilai dari form
+        const namaLengkap = document.querySelector("#inputNamaLengkap").value.trim();
+        const email = document.querySelector("#inputEmailRegister").value.trim();
+        const departemen = document.querySelector("#inputDepartemen").value.trim();
+        const password = document.querySelector("#inputPasswordRegister").value;
+        const konfirmasiPassword = document.querySelector("#inputKonfirmasiPassword").value;
+
+        // --- Validasi dasar ---
+        if (namaLengkap === "" || email === "" || password === "") {
+            registerError.textContent = "Nama lengkap, email, dan password wajib diisi.";
+            return;
+        }
+
+        if (password.length < 6) {
+            registerError.textContent = "Password minimal 6 karakter.";
+            return;
+        }
+
+        if (password !== konfirmasiPassword) {
+            registerError.textContent = "Konfirmasi password tidak cocok dengan password.";
+            return;
+        }
+
+        // --- Loading state ---
+        btnRegister.disabled = true;
+        btnRegister.textContent = "Mendaftarkan...";
+
+        // --- LANGKAH A: Membuat akun lewat Supabase Authentication ---
+        const { data, error } = await supabaseClient.auth.signUp({
+            email: email,
+            password: password
+        });
+
+        if (error) {
+            btnRegister.disabled = false;
+            btnRegister.textContent = "Daftar";
+
+            console.log("Gagal mendaftar:", error.message);
+
+            // Menangani error khusus: email sudah terdaftar
+            if (error.message.includes("already registered") || error.message.includes("already been registered")) {
+                registerError.textContent = "Email ini sudah terdaftar. Silakan masuk lewat halaman login.";
+            } else {
+                registerError.textContent = "Pendaftaran gagal. Silakan coba kembali.";
+            }
+            return;
+        }
+
+        // --- LANGKAH B: Membuat baris profile terkait (role otomatis "driver") ---
+        const { error: errorProfile } = await supabaseClient
+            .from("profiles")
+            .insert([{
+                id: data.user.id,
+                full_name: namaLengkap,
+                role: "driver", // SELALU driver, tidak bisa dipilih user, demi keamanan
+                department: departemen || null
+            }]);
+
+        btnRegister.disabled = false;
+        btnRegister.textContent = "Daftar";
+
+        if (errorProfile) {
+            console.log("Gagal membuat profile:", errorProfile.message);
+            registerError.textContent = "Akun berhasil dibuat, tetapi terjadi masalah pada data profil. Silakan hubungi admin.";
+            return;
+        }
+
+        // --- BERHASIL ---
+        formRegister.reset();
+
+        // Cek apakah email confirmation dibutuhkan (session kosong = perlu konfirmasi dulu)
+        if (data.session) {
+            // Tidak perlu konfirmasi email, langsung bisa login
+            registerSuccess.textContent = "Pendaftaran berhasil! Anda akan diarahkan ke halaman login...";
+            registerSuccess.classList.add("show");
+            setTimeout(function () {
+                window.location.href = "login.html";
+            }, 2000);
+        } else {
+            // Perlu konfirmasi email dulu
+            registerSuccess.textContent = "Pendaftaran berhasil! Silakan cek email Anda (" + email + ") dan klik link konfirmasi sebelum bisa masuk.";
+            registerSuccess.classList.add("show");
+        }
+
+    });
+
+}
+
 // ============================================
 // FUNGSI CEK STATUS LOGIN (dipakai di halaman selain login.html)
 // ============================================
