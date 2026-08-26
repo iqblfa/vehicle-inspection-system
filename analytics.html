@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vehicle Inspection System - Profil</title>
+    <title>Vehicle Inspection System - Analitik</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -32,35 +32,49 @@
                 <a href="history.html" class="menu-item">Riwayat Pengecekan</a>
                 <a href="vehicles.html" class="menu-item">Data Kendaraan</a>
                 <a href="damage-reports.html" class="menu-item">Laporan Kerusakan</a>
-                <a href="analytics.html" class="menu-item">Analitik</a>
-                <a href="profile.html" class="menu-item active">Profil</a>
+                <a href="analytics.html" class="menu-item active">Analitik</a>
+                <a href="profile.html" class="menu-item">Profil</a>
             </nav>
         </aside>
 
         <!-- ============ KONTEN UTAMA ============ -->
         <main class="main-content">
 
-            <h1 class="page-title">Profil</h1>
-            <p>Halaman ini masih dalam tahap pembangunan.</p>
+            <h1 class="page-title">Laporan Analitik</h1>
+            <p class="section-subtitle" id="analyticsSubtitle">Memuat data...</p>
+
+            <div class="chart-grid">
+
+                <div class="card chart-card chart-card-wide">
+                    <h2 class="section-title">Tren Pengecekan per Bulan</h2>
+                    <canvas id="chartTrenBulanan"></canvas>
+                </div>
+
+                <div class="card chart-card">
+                    <h2 class="section-title">Distribusi Hasil Pengecekan</h2>
+                    <canvas id="chartDistribusiHasil"></canvas>
+                </div>
+
+                <div class="card chart-card">
+                    <h2 class="section-title">Distribusi Tingkat Kerusakan</h2>
+                    <canvas id="chartTingkatKerusakan"></canvas>
+                </div>
+
+                <div class="card chart-card chart-card-wide">
+                    <h2 class="section-title">5 Kendaraan Paling Bermasalah</h2>
+                    <canvas id="chartKendaraanBermasalah"></canvas>
+                </div>
+
+            </div>
 
         </main>
 
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
-    <script>
-        checkAuthGuard();
-        sesuaikanSidebarSesuaiRole();
-
-        document.querySelector("#btnMenu").addEventListener("click", function () {
-            document.querySelector("#sidebar").classList.toggle("open");
-        });
-
-        document.querySelector("#btnLogout").addEventListener("click", function () {
-            logoutUser();
-        });
-    </script>
+    <script src="js/analytics.js"></script>
 </body>
 </html>

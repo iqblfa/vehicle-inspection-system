@@ -507,3 +507,36 @@
         justify-content: center;
     }
 }
+
+
+/* ============================================
+   PHASE 27: GRID & KARTU GRAFIK ANALITIK
+   ============================================ */
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.chart-card {
+    min-height: 320px;
+}
+
+.chart-card-wide {
+    grid-column: span 2;
+}
+
+.chart-card canvas {
+    max-height: 280px;
+}
+
+@media (max-width: 900px) {
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-card-wide {
+        grid-column: span 1;
+    }
+}
