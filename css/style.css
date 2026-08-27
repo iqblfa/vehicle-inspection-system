@@ -9,26 +9,42 @@
 }
 
 :root {
-    --color-primary: #2563eb;      /* biru utama */
-    --color-primary-dark: #1d4ed8; /* biru lebih gelap, untuk hover */
-    --color-sidebar-bg: #1e293b;   /* abu gelap kebiruan untuk sidebar */
-    --color-topbar-bg: #ffffff;
-    --color-bg: #f1f5f9;           /* abu sangat muda untuk latar halaman */
-    --color-text: #1e293b;
-    --color-text-light: #64748b;
-    --color-border: #e2e8f0;
-    --color-danger: #dc2626;
-    --color-warning: #f59e0b;
-    --color-success: #16a34a;
+    /* Warna utama — sedikit lebih hidup dari sebelumnya */
+    --color-primary: #4f46e5;
+    --color-primary-dark: #4338ca;
+    --color-primary-light: #eef2ff;
 
-    --topbar-height: 60px;
-    --sidebar-width: 240px;
+    --color-sidebar-bg: #111827;
+    --color-sidebar-bg-hover: #1f2937;
+
+    --color-topbar-bg: #ffffff;
+    --color-bg: #f8fafc;
+    --color-text: #0f172a;
+    --color-text-light: #64748b;
+    --color-border: #e5e7eb;
+
+    --color-danger: #e11d48;
+    --color-warning: #f59e0b;
+    --color-success: #10b981;
+
+    --topbar-height: 64px;
+    --sidebar-width: 250px;
+
+    /* Token BARU untuk konsistensi shadow & radius di seluruh aplikasi */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 10px 30px rgba(15, 23, 42, 0.12);
+    --transition-fast: 0.15s ease;
 }
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
     background-color: var(--color-bg);
     color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
 }
 
 /* ============================================
@@ -42,12 +58,25 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px;
+    padding: 0 24px;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
+
+.app-name {
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+}
+
+.app-name::before {
+    content: "🚗";
+    margin-right: 8px;
 }
 
 .topbar-left {
@@ -127,27 +156,30 @@ body {
 .sidebar-menu {
     display: flex;
     flex-direction: column;
-    padding: 16px 0;
+    padding: 16px 12px;
+    gap: 4px;
 }
 
 .menu-item {
-    color: #cbd5e1;
+    color: #9ca3af;
     text-decoration: none;
-    padding: 14px 24px;
-    font-size: 15px;
-    border-left: 4px solid transparent;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .menu-item:hover {
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: var(--color-sidebar-bg-hover);
     color: white;
 }
 
 .menu-item.active {
-    background-color: rgba(37, 99, 235, 0.2);
+    background-color: var(--color-primary);
     color: white;
-    border-left: 4px solid var(--color-primary);
     font-weight: 600;
+    border-left: none; /* menggantikan gaya garis kiri lama dengan latar penuh */
 }
 
 /* ============================================
@@ -172,36 +204,49 @@ body {
    ============================================ */
 
 .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
     border: none;
     cursor: pointer;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
+    transition: all var(--transition-fast);
 }
 
 .btn-primary {
     background-color: var(--color-primary);
     color: white;
+    box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover {
     background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
 }
 
 .card {
     background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
 }
 
 .badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
     font-size: 12px;
     font-weight: 600;
 }

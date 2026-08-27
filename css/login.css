@@ -7,8 +7,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #2563eb 0%, #1e293b 100%);
+    background: linear-gradient(135deg, #4f46e5 0%, #111827 100%);
     padding: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-page::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+    border-radius: 50%;
 }
 
 .login-box {
