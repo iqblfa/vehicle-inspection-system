@@ -36,6 +36,7 @@
                 <a href="damage-reports.html" class="menu-item">Laporan Kerusakan</a>
                 <a href="analytics.html" class="menu-item">Analitik</a>
                 <a href="maintenance.html" class="menu-item">Riwayat Servis</a>
+                <a href="pajak.html" class="menu-item">Reminder Pajak</a>
                 <a href="profile.html" class="menu-item">Profil</a>
             </nav>
         </aside>
@@ -58,6 +59,9 @@
                                 <th>Jenis</th>
                                 <th>Driver</th>
                                 <th>Status</th>
+                                <th>Pajak Tahunan</th>
+                                <th>STNK 5 Tahun</th>
+                                <th>KIR</th>
                                 <th>Odometer</th>
                                 <th>Aksi</th>
                             </tr>
@@ -65,7 +69,7 @@
                         <tbody id="tabelKendaraanBody">
                             <!-- Baris data akan diisi otomatis oleh JavaScript -->
                             <tr>
-                                <td colspan="7" class="text-center">Memuat data...</td>
+                                <td colspan="10" class="text-center">Memuat data...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -161,9 +165,21 @@
                             <option value="Tidak Aktif">Tidak Aktif</option>
                         </select>
                     </div>
+                <div class="form-row">
                     <div class="form-group">
-                        <label for="inputStnk">Tanggal Habis Pajak STNK</label>
-                        <input type="date" id="inputStnk">
+                        <label for="inputPajakTahunan">Habis Pajak Tahunan (STNK)</label>
+                        <input type="date" id="inputPajakTahunan">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputStnk5Tahun">Habis STNK 5 Tahun</label>
+                        <input type="date" id="inputStnk5Tahun">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="inputKir">Habis KIR (khusus truck/angkutan)</label>
+                        <input type="date" id="inputKir">
                     </div>
                 </div>
 
@@ -187,6 +203,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/tax-helper.js"></script>
     <script src="js/vehicles.js"></script>
 </body>
 </html>

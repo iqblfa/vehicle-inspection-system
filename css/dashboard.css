@@ -560,3 +560,19 @@
         grid-column: span 1;
     }
 }
+
+
+/* ============================================
+   PHASE 30: memastikan badge status pajak tersedia
+   (reuse warna dari badge status laporan, Phase 16)
+   ============================================ */
+
+.tax-info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tax-info-row .badge {
+    width: fit-content;
+}

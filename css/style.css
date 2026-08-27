@@ -270,3 +270,48 @@ body {
     background-color: #f1f5f9;
     color: #64748b;
 }
+
+
+/* ============================================
+   PHASE 29 (tambahan): PERAPIAN FORM 
+   ============================================ */
+
+.form-row {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    margin-bottom: 4px;
+}
+
+.form-row > div {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 16px;
+}
+
+.form-row label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-light);
+    margin-bottom: 6px;
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
+}

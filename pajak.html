@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Inspection System - Reminder Pajak</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="topbar-left">
+            <button class="btn-menu" id="btnMenu">☰</button>
+            <span class="app-name">VINS - Vehicle Inspection System</span>
+        </div>
+        <div class="topbar-right">
+            <span class="user-name">Halo, Admin</span>
+            <button class="btn-logout" id="btnLogout">Logout</button>
+        </div>
+    </header>
+
+    <div class="wrapper">
+
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-menu">
+                <a href="dashboard.html" class="menu-item">Dashboard</a>
+                <a href="inspection.html" class="menu-item">Form Pengecekan</a>
+                <a href="history.html" class="menu-item">Riwayat Pengecekan</a>
+                <a href="vehicles.html" class="menu-item">Data Kendaraan</a>
+                <a href="damage-reports.html" class="menu-item">Laporan Kerusakan</a>
+                <a href="analytics.html" class="menu-item">Analitik</a>
+                <a href="maintenance.html" class="menu-item">Riwayat Servis</a>
+                <a href="pajak.html" class="menu-item active">Reminder Pajak</a>
+                <a href="profile.html" class="menu-item">Profil</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <h1 class="page-title">Reminder Pajak Kendaraan</h1>
+            <p class="section-subtitle">Menampilkan pajak tahunan (STNK) dan pajak 5 tahun (KIR), diurutkan dari yang paling mendesak.</p>
+
+            <div class="card filter-bar">
+                <div class="form-group">
+                    <label for="filterJenisPajak">Jenis</label>
+                    <select id="filterJenisPajak">
+                        <option value="">-- Semua Jenis --</option>
+                        <option value="pajak_tahunan">Pajak Tahunan (STNK)</option>
+                        <option value="stnk_5tahun">STNK 5 Tahun</option>
+                        <option value="kir">KIR</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filterStatusPajak">Status</label>
+                    <select id="filterStatusPajak">
+                        <option value="">-- Semua Status --</option>
+                        <option value="lewat">Lewat Jatuh Tempo</option>
+                        <option value="segera">Segera (≤ 30 hari)</option>
+                        <option value="aman">Aman</option>
+                    </select>
+                </div>
+                <div class="form-group filter-buttons">
+                    <button class="btn btn-primary" id="btnTerapkanFilterPajak">Terapkan</button>
+                    <button class="btn btn-secondary" id="btnResetFilterPajak">Reset</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nomor Polisi</th>
+                                <th>Kendaraan</th>
+                                <th>Jenis Pajak</th>
+                                <th>Tanggal Jatuh Tempo</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelPajakBody">
+                            <tr><td colspan="5" class="text-center">Memuat data...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/tax-helper.js"></script>
+    <script src="js/pajak.js"></script>
+</body>
+</html>

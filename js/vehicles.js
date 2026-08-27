@@ -65,6 +65,17 @@ async function loadVehicles() {
 
         const badgeClass = getBadgeClass(vehicle.status);
 
+                const statusPajakTahunan = getStatusPajak(vehicle.pajak_tahunan_expiry);
+        const statusStnk5Tahun = getStatusPajak(vehicle.stnk_5tahun_expiry);
+
+        // KIR hanya relevan untuk kendaraan angkutan (Truck, Pick Up)
+        const jenisWajibKir = ["Truck", "Pick Up"];
+        const kendaraanWajibKir = jenisWajibKir.includes(vehicle.vehicle_type);
+        const statusKir = kendaraanWajibKir ? getStatusPajak(vehicle.kir_expiry) : null;
+        const kolomKir = kendaraanWajibKir
+            ? `<span class="badge ${statusKir.badgeClass}">${statusKir.label}</span>`
+            : `<span class="badge badge-secondary">Tidak Wajib</span>`;
+
         const baris = document.createElement("tr");
         baris.innerHTML = `
             <td>${vehicle.plate_number}</td>
@@ -72,6 +83,9 @@ async function loadVehicles() {
             <td>${vehicle.vehicle_type}</td>
             <td>${vehicle.department || "-"}</td>
             <td><span class="badge ${badgeClass}">${vehicle.status}</span></td>
+            <td><span class="badge ${statusPajakTahunan.badgeClass}">${statusPajakTahunan.label}</span></td>
+            <td><span class="badge ${statusStnk5Tahun.badgeClass}">${statusStnk5Tahun.label}</span></td>
+            <td>${kolomKir}</td>
             <td>${vehicle.last_odometer ? vehicle.last_odometer.toLocaleString("id-ID") + " km" : "-"}</td>
             <td>
                 <button class="btn-icon btn-edit" data-id="${vehicle.id}">✏️</button>
@@ -139,7 +153,9 @@ formKendaraan.addEventListener("submit", async function (event) {
     const odometer = document.querySelector("#inputOdometer").value;
     const department = document.querySelector("#inputDepartemen").value.trim();
     const status = document.querySelector("#inputStatus").value;
-    const stnkExpiry = document.querySelector("#inputStnk").value;
+    const pajakTahunanExpiry = document.querySelector("#inputPajakTahunan").value;
+    const stnk5TahunExpiry = document.querySelector("#inputStnk5Tahun").value;
+    const kirExpiry = document.querySelector("#inputKir").value;
     const notes = document.querySelector("#inputKeterangan").value.trim();
 
     // Validasi dasar
@@ -161,7 +177,9 @@ formKendaraan.addEventListener("submit", async function (event) {
         last_odometer: odometer ? parseInt(odometer) : 0,
         department: department || null,
         status: status,
-        stnk_expiry: stnkExpiry || null,
+        pajak_tahunan_expiry: pajakTahunanExpiry || null,
+        stnk_5tahun_expiry: stnk5TahunExpiry || null,
+        kir_expiry: kirExpiry || null,
         notes: notes || null
     };
 
@@ -258,7 +276,9 @@ async function bukaModalEdit(id) {
     document.querySelector("#inputOdometer").value = data.last_odometer || "";
     document.querySelector("#inputDepartemen").value = data.department || "";
     document.querySelector("#inputStatus").value = data.status;
-    document.querySelector("#inputStnk").value = data.stnk_expiry || "";
+    document.querySelector("#inputPajakTahunan").value = data.pajak_tahunan_expiry || "";
+    document.querySelector("#inputStnk5Tahun").value = data.stnk_5tahun_expiry || "";
+    document.querySelector("#inputKir").value = data.kir_expiry || "";
     document.querySelector("#inputKeterangan").value = data.notes || "";
 
     modalKendaraan.classList.add("show");

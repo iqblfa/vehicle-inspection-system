@@ -37,6 +37,7 @@
                 <a href="damage-reports.html" class="menu-item">Laporan Kerusakan</a>
                 <a href="analytics.html" class="menu-item">Analitik</a>
                 <a href="maintenance.html" class="menu-item">Riwayat Servis</a>
+                <a href="pajak.html" class="menu-item">Reminder Pajak</a>
                 <a href="profile.html" class="menu-item">Profil</a>
             </nav>
         </aside>
@@ -105,6 +106,14 @@
                     </div>
                 </div>
 
+                                <div class="stat-card">
+                    <div class="stat-icon stat-icon-yellow">📄</div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statPajakJatuhTempo">-</div>
+                        <div class="stat-label">Pajak Segera/Lewat Jatuh Tempo</div>
+                    </div>
+                </div>
+
             </div>
 
             <!-- ============ PENGECEKAN TERAKHIR ============ -->
@@ -140,6 +149,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/tax-helper.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
 </html>
