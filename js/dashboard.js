@@ -47,6 +47,7 @@ function getTanggalAwalBulanIni() {
 // ============================================
 // 3. FUNGSI: MEMUAT STATISTIK KENDARAAN
 //    (Total, Kondisi Baik, Perlu Perhatian, Rusak)
+// 1. FUNGSI PERTAMA
 // ============================================
 
 async function muatStatistikKendaraan() {
@@ -68,42 +69,6 @@ async function muatStatistikKendaraan() {
 // ============================================
 // PHASE 30: MENGHITUNG KENDARAAN YANG PAJAKNYA SEGERA/LEWAT JATUH TEMPO
 // ============================================
-
-async function muatStatistikPajak() {
-
-    const { data, error } = await supabaseClient
-        .from("vehicles")
-        .select("id, vehicle_type, pajak_tahunan_expiry, stnk_5tahun_expiry, kir_expiry");
-
-    if (error) {
-        console.log("Gagal memuat statistik pajak:", error.message);
-        return;
-    }
-
-    const jenisWajibKir = ["Truck", "Pick Up"];
-    let jumlahBermasalah = 0;
-
-    data.forEach(function (kendaraan) {
-
-        const statusPajakTahunan = getStatusPajak(kendaraan.pajak_tahunan_expiry);
-        const statusStnk5Tahun = getStatusPajak(kendaraan.stnk_5tahun_expiry);
-
-        const pajakTahunanBermasalah = statusPajakTahunan.sisaHari !== null && statusPajakTahunan.sisaHari <= 30;
-        const stnk5TahunBermasalah = statusStnk5Tahun.sisaHari !== null && statusStnk5Tahun.sisaHari <= 30;
-
-        let kirBermasalah = false;
-        if (jenisWajibKir.includes(kendaraan.vehicle_type)) {
-            const statusKir = getStatusPajak(kendaraan.kir_expiry);
-            kirBermasalah = statusKir.sisaHari !== null && statusKir.sisaHari <= 30;
-        }
-
-        if (pajakTahunanBermasalah || stnk5TahunBermasalah || kirBermasalah) {
-            jumlahBermasalah = jumlahBermasalah + 1;
-        }
-    });
-
-    document.querySelector("#statPajakJatuhTempo").textContent = jumlahBermasalah;
-}
 
     // Untuk "Kondisi Baik/Perlu Perhatian/Rusak", kita tentukan berdasarkan
     // HASIL PENGECEKAN TERAKHIR setiap kendaraan, bukan dari kolom "status" kendaraan
@@ -194,6 +159,42 @@ async function muatStatistikLaporanKerusakan() {
     }
 
     document.querySelector("#statLaporanKerusakan").textContent = count;
+}
+
+async function muatStatistikPajak() {
+
+    const { data, error } = await supabaseClient
+        .from("vehicles")
+        .select("id, vehicle_type, pajak_tahunan_expiry, stnk_5tahun_expiry, kir_expiry");
+
+    if (error) {
+        console.log("Gagal memuat statistik pajak:", error.message);
+        return;
+    }
+
+    const jenisWajibKir = ["Truck", "Pick Up"];
+    let jumlahBermasalah = 0;
+
+    data.forEach(function (kendaraan) {
+
+        const statusPajakTahunan = getStatusPajak(kendaraan.pajak_tahunan_expiry);
+        const statusStnk5Tahun = getStatusPajak(kendaraan.stnk_5tahun_expiry);
+
+        const pajakTahunanBermasalah = statusPajakTahunan.sisaHari !== null && statusPajakTahunan.sisaHari <= 30;
+        const stnk5TahunBermasalah = statusStnk5Tahun.sisaHari !== null && statusStnk5Tahun.sisaHari <= 30;
+
+        let kirBermasalah = false;
+        if (jenisWajibKir.includes(kendaraan.vehicle_type)) {
+            const statusKir = getStatusPajak(kendaraan.kir_expiry);
+            kirBermasalah = statusKir.sisaHari !== null && statusKir.sisaHari <= 30;
+        }
+
+        if (pajakTahunanBermasalah || stnk5TahunBermasalah || kirBermasalah) {
+            jumlahBermasalah = jumlahBermasalah + 1;
+        }
+    });
+
+    document.querySelector("#statPajakJatuhTempo").textContent = jumlahBermasalah;
 }
 
 // ============================================
