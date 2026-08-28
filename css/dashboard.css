@@ -54,7 +54,6 @@
 .data-table tbody tr:hover {
     background-color: #f8fafc;
 }
-}
 
 .text-center {
     text-align: center;
@@ -576,3 +575,4 @@
 .tax-info-row .badge {
     width: fit-content;
 }
+

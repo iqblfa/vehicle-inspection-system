@@ -315,3 +315,22 @@ body {
     border-color: var(--color-primary);
     box-shadow: 0 0 0 3px var(--color-primary-light);
 }
+
+#formKendaraan .form-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    margin-bottom: 18px !important;
+}
+
+#formKendaraan .form-group label {
+    display: block !important;
+}
+
+#formKendaraan .form-group input,
+#formKendaraan .form-group select,
+#formKendaraan .form-group textarea {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
